@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TentangAku.id - Konsultasi Psikologi ✨ AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .chat-box::-webkit-scrollbar { width: 4px; }
+    .chat-box::-webkit-scrollbar-thumb { background: #fbbf24; border-radius: 10px; }
+    
+    .typing-dots span {
+      animation: blink 1.4s infinite both;
+      height: 6px; width: 6px;
+      background: #9ca3af;
+      border-radius: 50%;
+      display: inline-block;
+      margin: 0 2px;
+    }
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes blink { 0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); } 40% { opacity: 1; transform: scale(1.2); } }
+    
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 glass-effect border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+      <div class="flex items-center gap-2 group cursor-pointer">
+        <div class="w-10 h-10 bg-amber-400 rounded-xl flex items-center justify-center text-white font-black text-xl rotate-3 group-hover:rotate-0 transition-transform">T</div>
+        <span class="font-bold text-xl tracking-tight">Tentang<span class="text-amber-500">Aku</span>.id</span>
+      </div>
+      <div class="hidden md:flex gap-8 text-sm font-semibold text-slate-600">
+        <a href="#" class="hover:text-amber-500 transition">Beranda</a>
+        <a href="#layanan" class="hover:text-amber-500 transition">Layanan</a>
+        <a href="#ai-center" class="text-amber-600">✨ AI Center</a>
+      </div>
+      <button class="bg-slate-900 text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-slate-800 transition shadow-lg shadow-slate-200">
+        Masuk
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="pt-16 pb-20 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <div class="space-y-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-700 text-xs font-bold uppercase tracking-wider">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+        </span>
+        Bertenaga Gemini 2.5
+      </div>
+      <h1 class="text-5xl md:text-6xl font-extrabold leading-[1.1] tracking-tight text-slate-900">
+        Temukan <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-500">Ketenangan</span> di Balik Ceritamu.
+      </h1>
+      <p class="text-lg text-slate-600 leading-relaxed max-w-lg">
+        Gunakan ✨ AI Vision untuk menganalisis perasaanmu lewat foto, atau bicara langsung dengan asisten empati kami yang tersedia 24/7.
+      </p>
+      <div class="flex flex-wrap gap-4 pt-4">
+        <a href="#ai-center" class="px-8 py-4 bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold rounded-2xl shadow-xl shadow-amber-200 transition-all hover:-translate-y-1">
+          Mulai Konsultasi ✨
+        </a>
+      </div>
+    </div>
+    <div class="relative group">
+      <div class="absolute -inset-4 bg-gradient-to-tr from-amber-400 to-orange-400 rounded-[2rem] blur-2xl opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+      <img src="https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?auto=format&fit=crop&w=800&q=80" alt="Mindfulness" class="relative rounded-[2rem] border-8 border-white shadow-2xl object-cover h-[450px] w-full" />
+    </div>
+  </header>
+
+  <!-- AI Center Section -->
+  <section id="ai-center" class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid lg:grid-cols-3 gap-12">
+        
+        <!-- Left: AI Analytics -->
+        <div class="lg:col-span-1 space-y-8">
+          <div class="p-8 rounded-[2rem] bg-slate-50 border border-slate-200">
+            <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+              Analisis Emosi ✨
+            </h3>
+            <div id="mood-display" class="space-y-4">
+              <div class="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
+                <div id="mood-emoji" class="text-3xl">🧘</div>
+                <div>
+                  <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Status Saat Ini</div>
+                  <div id="mood-text" class="font-bold text-slate-800">Menunggu Ceritamu...</div>
+                </div>
+              </div>
+              <div class="p-4 bg-amber-50 rounded-2xl border border-amber-100">
+                <p class="text-xs text-amber-800 leading-relaxed font-medium">
+                  ✨ Tips: Kamu bisa mengunggah foto selfie atau coretan tanganmu untuk analisis emosi yang lebih dalam.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3">
+             <button id="btn-audio" class="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold text-sm hover:bg-slate-800 transition flex items-center justify-center gap-2 shadow-lg disabled:opacity-50">
+               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+               ✨ Putar Terapi Suara
+             </button>
+             <button id="btn-summary" class="w-full py-4 bg-white border-2 border-slate-200 text-slate-700 rounded-2xl font-bold text-sm hover:border-amber-400 transition flex items-center justify-center gap-2">
+               ✨ Buat Ringkasan Sesi
+             </button>
+          </div>
+        </div>
+
+        <!-- Right: Interactive Chat & Vision -->
+        <div class="lg:col-span-2 flex flex-col h-[650px] bg-slate-50 rounded-[2.5rem] border border-slate-200 overflow-hidden shadow-2xl">
+          <div class="p-6 bg-white border-b border-slate-100 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-gradient-to-tr from-amber-400 to-orange-400 rounded-full flex items-center justify-center text-white font-bold">✨</div>
+              <div>
+                <h4 class="font-bold text-slate-900 text-sm">Asisten Empati Gemini</h4>
+                <p class="text-[10px] text-green-500 font-bold flex items-center gap-1 uppercase tracking-wider">
+                  <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> Online & Listening
+                </p>
+              </div>
+            </div>
+            <div class="flex gap-2">
+                <label for="image-upload" class="p-2.5 bg-slate-50 hover:bg-amber-100 text-slate-600 hover:text-amber-600 rounded-xl cursor-pointer transition shadow-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <input type="file" id="image-upload" accept="image/*" class="hidden" />
+                </label>
+                <button onclick="resetChat()" class="p-2.5 bg-slate-50 hover:bg-red-50 text-slate-400 hover:text-red-500 rounded-xl transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                </button>
+            </div>
+          </div>
+
+          <div id="chat-container" class="chat-box flex-1 overflow-y-auto p-8 flex flex-col gap-6">
+            <div class="flex flex-col gap-2 items-start max-w-[85%]">
+              <div class="bg-white p-4 rounded-2xl rounded-tl-none border border-slate-100 shadow-sm text-sm text-slate-700 leading-relaxed">
+                Halo. Saya asisten ✨ AI-mu. Kamu bisa bercerita lewat teks atau mengunggah foto ekspresi wajahmu agar saya bisa lebih memahami perasaanmu. Bagaimana harimu?
+              </div>
+            </div>
+          </div>
+
+          <div class="p-6 bg-white border-t border-slate-100">
+            <form id="chat-form" class="flex gap-3">
+              <input type="text" id="user-input" placeholder="Tuliskan perasaanmu di sini..." class="flex-1 bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 transition" autocomplete="off" />
+              <button type="submit" class="bg-amber-400 hover:bg-amber-500 text-slate-900 w-14 h-14 flex items-center justify-center rounded-2xl shadow-lg transition-transform active:scale-95">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 py-12 px-6 mt-auto">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-amber-400 rounded-lg flex items-center justify-center text-white font-black text-sm">T</div>
+        <span class="font-bold text-white tracking-tight">Tentang<span class="text-amber-500">Aku</span>.id</span>
+      </div>
+      <p class="text-xs">© 2024 TentangAku.id. Didukung oleh teknologi ✨ Gemini 2.5 Flash.</p>
+    </div>
+  </footer>
+
+  <script>
+    const chatContainer = document.getElementById('chat-container');
+    const chatForm = document.getElementById('chat-form');
+    const userInput = document.getElementById('user-input');
+    const imageUpload = document.getElementById('image-upload');
+    const moodEmoji = document.getElementById('mood-emoji');
+    const moodText = document.getElementById('mood-text');
+    const btnAudio = document.getElementById('btn-audio');
+    const btnSummary = document.getElementById('btn-summary');
+
+    const apiKey = "";
+    const apiEndpoint = '/api/chat'; // backend enpoint on server
+    let lastResponse = "";
+
+    function appendMessage(role, content, isImage = false) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `flex flex-col gap-2 ${role === 'user' ? 'items-end ml-auto' : 'items-start'} max-w-[85%] animate-fade-in`;
+      
+      const inner = document.createElement('div');
+      inner.className = `${role === 'user' ? 'bg-amber-400 text-slate-900 rounded-tr-none' : 'bg-white border border-slate-100 text-slate-700 rounded-tl-none'} p-4 rounded-2xl shadow-sm text-sm leading-relaxed`;
+      
+      if (isImage) {
+        const img = document.createElement('img');
+        img.src = content;
+        img.className = "rounded-lg max-w-full h-auto mb-2 border border-slate-200";
+        inner.appendChild(img);
+        const text = document.createElement('p');
+        text.innerText = "Menganalisis foto ini... ✨";
+        inner.appendChild(text);
+      } else {
+        inner.innerText = content;
+      }
+      
+      msgDiv.appendChild(inner);
+      chatContainer.appendChild(msgDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+      return inner;
+    }
+
+    function showTyping() {
+      const typingDiv = document.createElement('div');
+      typingDiv.className = "typing-dots flex gap-1 p-2 bg-white border border-slate-100 rounded-xl w-16 mb-4";
+      typingDiv.innerHTML = "<span></span><span></span><span></span>";
+      chatContainer.appendChild(typingDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+      return typingDiv;
+    }
+
+async function callGemini(prompt, imageData = null) {
+  try {
+    const response = await fetch(apiEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        conversation: [{ role: 'user', text: prompt }],
+      }
+      ),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const text = data.result;
+
+    // Parse Hidden Mood Data
+    const moodMatch = text.match(/\[MOOD:\s*(.*),\s*TEXT:\s*(.*)\]/);
+    if (moodMatch) {
+            moodEmoji.innerText = moodMatch[1];
+            moodText.innerText = moodMatch[2];
+            return text.replace(/\[MOOD:.*\]/, "").trim(); //return the text
+        }
+        
+        return text;
+      } catch (error) {
+        console.error("Gemini Error:", error);
+        return "Maaf, ✨ sistem kami sedang sedikit lelah. Bisa ceritakan lagi?";
+      }
+
+    }
+
+    chatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const text = userInput.value.trim();
+      if (!text) return;
+
+      appendMessage('user', text);
+      userInput.value = '';
+      const typing = showTyping();
+
+      const response = await callGemini(text);
+      typing.remove();
+      lastResponse = response;
+      appendMessage('bot', response);
+    });
+
+    imageUpload.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+        const base64 = event.target.result;
+        appendMessage('user', base64, true);
+        const typing = showTyping();
+        
+        const response = await callGemini("Analisis ekspresi wajahku di foto ini dan berikan kata-kata penguatan yang tepat.", base64);
+        typing.remove();
+        lastResponse = response;
+        appendMessage('bot', response);
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // ✨ TTS Audio Therapy
+    btnAudio.addEventListener('click', async () => {
+      if (!lastResponse) return;
+      btnAudio.disabled = true;
+      btnAudio.innerText = "Memproses Suara ✨...";
+
+      const ttsUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+      const payload = {
+        contents: [{ parts: [{ text: `Bacakan pesan ini dengan suara yang sangat lembut, perlahan, dan menenangkan: ${lastResponse}` }] }],
+        generationConfig: {
+          responseModalities: ["AUDIO"],
+          speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Aoede" } } }
+        }
+      };
+
+      try {
+        const response = await fetch(ttsUrl, { method: 'POST', body: JSON.stringify(payload) });
+        const data = await response.json();
+        const pcmData = data.candidates[0].content.parts[0].inlineData.data;
+        
+        // PCM to WAV conversion
+        const playAudio = (base64) => {
+            const binary = atob(base64);
+            const buffer = new ArrayBuffer(binary.length + 44);
+            const view = new DataView(buffer);
+            
+            const writeString = (os, str) => { for(let i=0; i<str.length; i++) view.setUint8(os+i, str.charCodeAt(i)); };
+            writeString(0, 'RIFF');
+            view.setUint32(4, 36 + binary.length, true);
+            writeString(8, 'WAVE');
+            writeString(12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true);
+            view.setUint16(22, 1, true);
+            view.setUint32(24, 24000, true);
+            view.setUint32(28, 48000, true);
+            view.setUint16(32, 2, true);
+            view.setUint16(34, 16, true);
+            writeString(36, 'data');
+            view.setUint32(40, binary.length, true);
+            for(let i=0; i<binary.length; i++) view.setUint8(44+i, binary.charCodeAt(i));
+            
+            const blob = new Blob([buffer], { type: 'audio/wav' });
+            new Audio(URL.createObjectURL(blob)).play();
+        };
+        
+        playAudio(pcmData);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        btnAudio.disabled = false;
+        btnAudio.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg> ✨ Putar Terapi Suara`;
+      }
+    });
+
+    btnSummary.addEventListener('click', async () => {
+        const typing = showTyping();
+        const response = await callGemini("Tolong buatkan ringkasan singkat dari percakapan kita hari ini dalam 3 poin refleksi diri.");
+        typing.remove();
+        appendMessage('bot', `✨ Ringkasan Refleksimu:\n\n${response}`);
+    });
+
+    function resetChat() {
+        chatContainer.innerHTML = '';
+        moodEmoji.innerText = "🧘";
+        moodText.innerText = "Menunggu Ceritamu...";
+        appendMessage('bot', "Chat telah dibersihkan. Mari mulai dari awal, apa yang ingin kamu bagikan?");
+    }
+  </script>
+</body>
+</html>
